@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="navbar">
+      <div>
+          <h2>
+             <a href="./index.html">Home</a>
+          </h2>
+      </div>
+
+      <div id="signin">
+          <h3>SignIn</h3>
+          <h3>Cart</h3>
+      </div>
+    </div>
+
+    <div id="add"> 
+        <h1>Add Your Product To The Products List</h1>
+    </div>
+
+
+   
+   
+   
+    <div id="form">
+     <div>
+         <div> 
+                <label for="title" class="label">Product Title:</label> 
+                <input type="text" name="" id="title" placeholder="Enter Product Name">
+           </div>
+
+           <div>
+            <label for="gender" class="label">Gender:</label> 
+            <select name="" id="gender">
+                <option value="">-- Choose Gender</option>
+               <option value="male">Male</option>
+               <option value="female">Female</option>
+            </select>
+           </div>
+        </div>
+          
+            <div>
+                 <div> 
+            <label for="price" class="label">Price:</label> 
+            <input type="number" name="" id="price" placeholder="Enter Fair Price">
+       </div>
+
+       <div> 
+        <label for="catrgory" class="label">Category:</label> 
+        <input type="text" name="" id="category" placeholder="Enter Category">
+      </div>
+    </div>
+
+          
+<div>
+    <div> 
+        <label for="image" class="label">Image Url:</label> 
+        <input type="text" name="" id="image" placeholder="Enter image Url">
+      </div>
+
+        </div>
+
+        <div ><button onclick="addProduct()"id="addbut">Add Product</button>
+        </div>
+    
+ </div>
+
+ <div id="sort_filter">
+          <div id="sort_but">
+             <label for="gender" class="label">Sort:</label> 
+               <select name="" id="">
+                 <option value="">Low To High</option>
+                 <option value="">High To Low</option>
+                </select>
+         </div>
+         <div id="filter_but">
+            <label for="gender" class="label">Filter:</label> 
+              <select name="" id="">
+                <option value="">Male</option>
+                <option value="">Female</option>
+               </select>
+        </div>
+    </div>
+
+    <div id="container">
+        
+    </div>
+   
+</body>
+<script>
+
+let container = document.getElementById("container");
+
+
+
+ function addProduct() {
+let title = document.getElementById("title").value;
+let gender = document.getElementById("gender").value;
+let price = document.getElementById("price").value;
+let category = document.getElementById("category").value;
+let image = document.getElementById("image").value;
+let data ={
+    title,
+    gender,
+    price,
+    category,
+    image
+}
+async function addData(){
+      try{
+        let res = await fetch("  http://localhost:3000/product",{
+            method:"POST",
+             body:JSON.stringify(data),
+            headers:{
+             "Content-Type":"application/json"
+            }
+        })
+        console.log(res)
+      }
+     catch(error){
+         console.log(error)
+     }
+}
+addData();
+}
+
+
+container.innerHTML="";
+ async function updateDOM(){
+    try {
+    let res= await fetch ("  http://localhost:3000/product")
+    let data= await res.json()
+    console.log(data)
+    data.forEach(ele => {
+  
+let productCard=document.createElement("div");
+productCard.setAttribute("id","productCard")
+
+let productimage= document.createElement("img")
+productimage.src=ele.image;
+
+   let title = document.createElement("h3");
+   title.textContent=ele.title;
+
+   let priceBox=document.createElement("div");
+   priceBox.setAttribute("id","price")
+
+   let price=document.createElement("p");
+   price.innerText= `Price: ${ele.price}`;
+    
+   let removeProduct = document.createElement('button');
+   removeProduct.innerText='Delete'
+ 
+   removeProduct.onclick = async function (){
+            let res=await fetch(`   http://localhost:3000/product/${ele.id}`,{
+                method:"DELETE"
+            })
+            let data= await res.json();
+            updateDOM(data)
+        }
+        priceBox.append(price,removeProduct)
+        productCard.append(productimage, title,priceBox)
+        container.append( productCard)
+    });
+   
+} catch (error) {
+    console.log(error)
+}
+   
+
+}
+
+
+updateDOM();
+</script>
+</html>
