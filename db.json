@@ -9,14 +9,6 @@
       "image": "https://picsum.photos/200"
     },
     {
-      "id": 2,
-      "title": "Tomik",
-      "gender": "female",
-      "price": 2198,
-      "category": "jacket",
-      "image": "https://picsum.photos/200"
-    },
-    {
       "id": 3,
       "title": "Pauley",
       "gender": "male",
@@ -79,14 +71,6 @@
       "price": 1353,
       "category": "jacket",
       "image": "https://picsum.photos/200"
-    },
-    {
-      "title": "PDF Demo",
-      "gender": "male",
-      "price": "1234",
-      "category": "PDF",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png",
-      "id": 11
     }
   ]
 }

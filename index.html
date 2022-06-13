@@ -8,18 +8,7 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div id="navbar">
-      <div>
-          <h2>
-             <a href="./index.html">Home</a>
-          </h2>
-      </div>
-
-      <div id="signin">
-          <h3>SignIn</h3>
-          <h3>Cart</h3>
-      </div>
-    </div>
+   
 
     <div id="add"> 
         <h1>Add Your Product To The Products List</h1>
@@ -133,6 +122,7 @@ addData();
 
 
 container.innerHTML="";
+
  async function updateDOM(){
     try {
     let res= await fetch ("  http://localhost:3000/product")
